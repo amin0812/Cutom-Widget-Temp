@@ -64,7 +64,7 @@ const updateKey = ref(0);
   <Vueform :key="updateKey" v-bind="vueform" />
 
 
-  <div id="widget-content">
+  <div id="widget-content" class="banner">
     <div id="image">
       <img src="../src/assets/1kqp4d.jpg" alt="Girl in a jacket" width="500" height="600">
 
