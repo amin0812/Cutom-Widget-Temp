@@ -80,8 +80,8 @@ const updateKey = ref(0);
   align-items: center;
 }
 .image {
-  width: 30px;
-  height: 30px;
+  width: 3px;
+  height: 3px;
 
 }
 
