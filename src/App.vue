@@ -77,15 +77,20 @@ const updateKey = ref(0);
 <style scoped>
 .banner {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Align items to the start of the flex container */
 }
-.image {
-  width: 3px;
-  height: 3px;
 
+.image {
+  flex-shrink: 0; /* Prevent the image from shrinking */
+  margin-right: 20px; /* Space between the image and the text content */
+}
+
+.image img {
+  width: 100px;
+  height: 100px;
 }
 
 #text-content {
-  flex-grow: 1;
+  flex-grow: 1; /* Allow the text content to grow and take up the remaining space */
 }
 </style>
