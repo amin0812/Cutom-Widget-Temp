@@ -66,6 +66,7 @@ const updateKey = ref(0);
 
   <div id="widget-content" class="banner">
     <div class="image">
+      <img src="../src/assets/1kqp4d.jpg" alt="Girl in a jacket">
 
     </div>
     <h1> {{ formValues.headline }}</h1>
