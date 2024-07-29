@@ -83,13 +83,13 @@ const updateKey = ref(0);
 #image {
   flex-shrink: 0;
   margin-right: 20px; /* Space between image and text */
-  width: 100px;
-  height: 100px;
+  width: 30px;
+  height: 30px;
 }
 
 #image img {
-  width: 100px;
-  height: 100px;
+  width: 30px;
+  height: 30px;
 }
 
 #text-content {
