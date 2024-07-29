@@ -73,3 +73,24 @@ const updateKey = ref(0);
     <div v-html="formValues.content"></div>
   </div>
 </template>
+
+<style scoped>
+.banner {
+  display: flex;
+  align-items: center;
+}
+
+#image {
+  flex-shrink: 0;
+  margin-right: 20px; /* Space between image and text */
+}
+
+#image img {
+  width: 100px;
+  height: 100px;
+}
+
+#text-content {
+  flex-grow: 1;
+}
+</style>
