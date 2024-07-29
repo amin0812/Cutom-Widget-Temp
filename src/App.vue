@@ -97,6 +97,7 @@ const updateKey = ref(0);
 .image img {
   width: 215;
   height: 100px;
+  object-fit: cover;
 }
 
 #text-content {
