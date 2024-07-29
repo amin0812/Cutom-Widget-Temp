@@ -65,7 +65,7 @@ const updateKey = ref(0);
 
 
   <div id="widget-content" class="banner">
-    <div id="image">
+    <div class="image">
 
     </div>
     <h1> {{ formValues.headline }}</h1>
@@ -78,17 +78,10 @@ const updateKey = ref(0);
   display: flex;
   align-items: center;
 }
-
-#image {
-  flex-shrink: 0;
-  margin-right: 20px; /* Space between image and text */
+.image {
   width: 30px;
   height: 30px;
-}
 
-#image img {
-  width: 30px;
-  height: 30px;
 }
 
 #text-content {
