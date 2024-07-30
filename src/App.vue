@@ -3,6 +3,9 @@ import { onMounted, onUpdated, ref, unref } from 'vue';
 import { cloneDeep } from 'lodash';
 import sdkclass from 'blocksdk';
 
+// If using npm/yarn, import Font Awesome CSS
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 const sdk = new sdkclass();
 
 const formValues = ref({});
@@ -28,10 +31,30 @@ const vueform = ref({
     content: {
       type: 'editor',
     },
+    separation : {
+
+      type  : 'static',
+      tag: 'hr',
+    },
     button: {
       type: 'text',
-      placeholder: 'button',
-    }
+      placeholder: 'Button Link',
+    },
+    phone: {
+      type: 'phone',
+      placeholder: 'Phone'
+    },
+    email: {
+          type: 'text',
+          inputType: 'email',
+          rules: [
+            'required',
+            'max:255',
+            'email',
+          ],
+          placeholder: 'Email',
+          
+        },
   }
 });
 
@@ -55,46 +78,26 @@ const updateKey = ref(0);
 <template>
   <Vueform :key="updateKey" v-bind="vueform" />
 
-  <table id="widget-content" class="banner">
+  <table id="widget-content" style="width: 100%; background-color: #f0f0f0; padding: 10px; border-radius: 5px; border-spacing: 10px;">
     <tr>
-      <td class="image-cell">
-        <img :src="formValues.link || '../src/assets/1kqp4d.jpg'" alt="Image">
-      </td>
-      <td class="text-content">
-        <h3>{{ formValues.headline }}</h3>
+      <template v-if="formValues.link">
+        <td style="width: 100px; vertical-align: top;">
+          <img :src="formValues.link" alt="Image" style="width: 100px; height: 100px; object-fit: cover;">
+        </td>
+      </template>
+      <td :colspan="formValues.link ? 1 : 2" style="vertical-align: top; text-align: left;">
+        <h3 style="margin: 0 0 10px 0;">{{ formValues.headline }}</h3>
         <div v-html="formValues.content"></div>
-        <button>{{formValues.button }}</button>
+        <button v-if="formValues.button">{{formValues.button }}</button>
+        <div v-if="formValues.phone" style="margin-top: 10px; display: flex; align-items: center;">
+          <i class="fas fa-phone-alt" style="margin-right: 5px;"></i>
+          {{ formValues.phone }}
+        </div>
+        <div v-if="formValues.email" style="margin-top: 10px; display: flex; align-items: center;">
+          <i class="fas fa-envelope" style="margin-right: 5px;"></i>
+          {{ formValues.email }}
+        </div>
       </td>
     </tr>
   </table>
 </template>
-
-<style scoped>
-.banner {
-  width: 100%;
-  background-color: #f0f0f0; /* Light grey background color */
-  padding: 10px; /* Add some padding for better appearance */
-  border-radius: 5px; /* Optional: Add border radius for rounded corners */
-  border-spacing: 10px; /* Add space between table cells */
-}
-
-.image-cell {
-  width: 100px;
-  vertical-align: top;
-}
-
-.image-cell img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover; /* Ensure the image fits within the specified dimensions */
-}
-
-.text-content {
-  vertical-align: top;
-  text-align: left;
-}
-
-h3 {
-  margin: 0 0 10px 0;
-}
-</style>
