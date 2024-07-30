@@ -3,7 +3,7 @@ import { onMounted, onUpdated, ref, unref } from 'vue';
 import { cloneDeep } from 'lodash';
 import sdkclass from 'blocksdk';
 
-// If using npm/yarn, import Font Awesome CSS
+// Import Font Awesome CSS for icons
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const sdk = new sdkclass();
@@ -32,7 +32,6 @@ const vueform = ref({
       type: 'editor',
     },
     separation : {
-
       type  : 'static',
       tag: 'hr',
     },
@@ -45,16 +44,15 @@ const vueform = ref({
       placeholder: 'Phone'
     },
     email: {
-          type: 'text',
-          inputType: 'email',
-          rules: [
-            'required',
-            'max:255',
-            'email',
-          ],
-          placeholder: 'Email',
-          
-        },
+      type: 'text',
+      inputType: 'email',
+      rules: [
+        'required',
+        'max:255',
+        'email',
+      ],
+      placeholder: 'Email',
+    },
   }
 });
 
@@ -78,25 +76,43 @@ const updateKey = ref(0);
 <template>
   <Vueform :key="updateKey" v-bind="vueform" />
 
-  <table id="widget-content" style="width: 100%; background-color: #f0f0f0; padding: 10px; border-radius: 5px; border-spacing: 10px;">
+  <table width="100%" bgcolor="#f0f0f0" cellpadding="10" cellspacing="0" style="border-radius: 5px; border-spacing: 0;">
     <tr>
       <template v-if="formValues.link">
-        <td style="width: 100px; vertical-align: top;">
-          <img :src="formValues.link" alt="Image" style="width: 100px; height: 100px; object-fit: cover;">
+        <td width="100" valign="top" style="padding: 0;">
+          <img :src="formValues.link" alt="Image" width="100" height="100" style="display: block; width: 100px; height: 100px; object-fit: cover;">
         </td>
       </template>
-      <td :colspan="formValues.link ? 1 : 2" style="vertical-align: top; text-align: left;">
-        <h3 style="margin: 0 0 10px 0;">{{ formValues.headline }}</h3>
-        <div v-html="formValues.content"></div>
-        <button v-if="formValues.button">{{formValues.button }}</button>
-        <div v-if="formValues.phone" style="margin-top: 10px; display: flex; align-items: center;">
-          <i class="fas fa-phone-alt" style="margin-right: 5px;"></i>
-          {{ formValues.phone }}
-        </div>
-        <div v-if="formValues.email" style="margin-top: 10px; display: flex; align-items: center;">
-          <i class="fas fa-envelope" style="margin-right: 5px;"></i>
-          {{ formValues.email }}
-        </div>
+      <td valign="top">
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="padding-bottom: 10px;">
+              <h3 style="margin: 0;">{{ formValues.headline }}</h3>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 10px;">
+              <span v-html="formValues.content"></span>
+            </td>
+          </tr>
+          <tr v-if="formValues.button">
+            <td style="padding-bottom: 10px;">
+              <button style="padding: 8px 16px; font-size: 14px; cursor: pointer;">{{ formValues.button }}</button>
+            </td>
+          </tr>
+          <tr v-if="formValues.phone">
+            <td style="padding-bottom: 10px; display: flex; align-items: center;">
+              <i class="fas fa-phone-alt" style="margin-right: 5px;"></i>
+              {{ formValues.phone }}
+            </td>
+          </tr>
+          <tr v-if="formValues.email">
+            <td style="padding-bottom: 10px; display: flex; align-items: center;">
+              <i class="fas fa-envelope" style="margin-right: 5px;"></i>
+              {{ formValues.email }}
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
   </table>
