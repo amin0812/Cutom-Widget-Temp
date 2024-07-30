@@ -32,7 +32,6 @@ const vueform = ref({
       type: 'editor',
     },
     separation : {
-
       type  : 'static',
       tag: 'hr',
     },
@@ -45,16 +44,15 @@ const vueform = ref({
       placeholder: 'Phone'
     },
     email: {
-          type: 'text',
-          inputType: 'email',
-          rules: [
-            'required',
-            'max:255',
-            'email',
-          ],
-          placeholder: 'Email',
-          
-        },
+      type: 'text',
+      inputType: 'email',
+      rules: [
+        'required',
+        'max:255',
+        'email',
+      ],
+      placeholder: 'Email',
+    },
   }
 });
 
@@ -78,25 +76,41 @@ const updateKey = ref(0);
 <template>
   <Vueform :key="updateKey" v-bind="vueform" />
 
-  <table id="widget-content" style="width: 100%; background-color: #f0f0f0; padding: 10px; border-radius: 5px; border-spacing: 10px;">
+  <table id="widget-content" style="width: 100%; background-color: #f0f0f0; padding: 10px; border-radius: 5px; border-spacing: 0; border-collapse: collapse;">
     <tr>
       <template v-if="formValues.link">
-        <td style="width: 100px; vertical-align: top;">
+        <td style="width: 100px; vertical-align: top; padding-right: 10px;">
           <img :src="formValues.link" alt="Image" style="width: 100px; height: 100px; object-fit: cover;">
         </td>
       </template>
-      <td :colspan="formValues.link ? 1 : 2" style="vertical-align: top; text-align: left;">
+      <td style="vertical-align: top; text-align: left; padding-left: 10px;" :colspan="formValues.link ? 1 : 2">
         <h3 style="margin: 0 0 10px 0;">{{ formValues.headline }}</h3>
-        <div v-html="formValues.content"></div>
-        <button v-if="formValues.button">{{formValues.button }}</button>
-        <div v-if="formValues.phone" style="margin-top: 10px; display: flex; align-items: center;">
-          <i class="fas fa-phone-alt" style="margin-right: 5px;"></i>
-          {{ formValues.phone }}
-        </div>
-        <div v-if="formValues.email" style="margin-top: 10px; display: flex; align-items: center;">
-          <i class="fas fa-envelope" style="margin-right: 5px;"></i>
-          {{ formValues.email }}
-        </div>
+        <div style="margin-bottom: 10px;" v-html="formValues.content"></div>
+        <button v-if="formValues.button" style="padding: 8px 16px; font-size: 14px; cursor: pointer;">{{ formValues.button }}</button>
+        <template v-if="formValues.phone">
+          <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+            <tr>
+              <td style="width: 20px; padding-right: 5px;">
+                <i class="fas fa-phone-alt" style="font-size: 16px;"></i>
+              </td>
+              <td>
+                {{ formValues.phone }}
+              </td>
+            </tr>
+          </table>
+        </template>
+        <template v-if="formValues.email">
+          <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+            <tr>
+              <td style="width: 20px; padding-right: 5px;">
+                <i class="fas fa-envelope" style="font-size: 16px;"></i>
+              </td>
+              <td>
+                {{ formValues.email }}
+              </td>
+            </tr>
+          </table>
+        </template>
       </td>
     </tr>
   </table>
