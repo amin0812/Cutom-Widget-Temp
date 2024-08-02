@@ -31,13 +31,21 @@ const vueform = ref({
     content: {
       type: 'editor',
     },
-    separation : {
-      type  : 'static',
+    separation: {
+      type: 'static',
       tag: 'hr',
     },
-    button: {
+    buttonName: {
+      type: 'text',
+      placeholder: 'Button Name',
+    },
+    buttonLink: {
       type: 'text',
       placeholder: 'Button Link',
+    },
+    separation1: {
+      type: 'static',
+      tag: 'hr',
     },
     phone: {
       type: 'phone',
@@ -76,42 +84,85 @@ const updateKey = ref(0);
 <template>
   <Vueform :key="updateKey" v-bind="vueform" />
 
-  <table id="widget-content" style="width: 100%; background-color: #f0f0f0; padding: 10px; border-radius: 5px; border-spacing: 0; border-collapse: collapse;">
-    <tr>
-      <template v-if="formValues.link">
-        <td style="width: 100px; vertical-align: top; padding-right: 10px;">
-          <img :src="formValues.link" alt="Image" style="width: 100px; height: 100px; object-fit: cover;">
+  <table id="widget-content" style="width: 100%; background-color: #f0f0f0; padding: 10px; border-radius: 5px; border-spacing: 10px;">
+    <tbody>
+      <!-- Image row -->
+      <tr v-if="formValues.link">
+        <td style="width: 100px; vertical-align: top;">
+          <img :src="formValues.link" alt="Image" style="width: 100%; height: auto; object-fit: cover;">
         </td>
-      </template>
-      <td style="vertical-align: top; text-align: left; padding-left: 10px;" :colspan="formValues.link ? 1 : 2">
-        <h3 style="margin: 0 0 10px 0;">{{ formValues.headline }}</h3>
-        <div style="margin-bottom: 10px;" v-html="formValues.content"></div>
-        <button v-if="formValues.button" style="padding: 8px 16px; font-size: 14px; cursor: pointer;">{{ formValues.button }}</button>
-        <template v-if="formValues.phone">
-          <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
-            <tr>
-              <td style="width: 20px; padding-right: 5px;">
-                <i class="fas fa-phone-alt" style="font-size: 16px;"></i>
-              </td>
-              <td>
-                {{ formValues.phone }}
-              </td>
-            </tr>
+        <td style="vertical-align: top;">
+          <!-- Headline, content, and button -->
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="text-align: left;">
+                  <h3 style="margin: 0 0 10px 0;">{{ formValues.headline }}</h3>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: left;" v-html="formValues.content"></td>
+              </tr>
+              <tr v-if="formValues.buttonName">
+                <td style="text-align: left;">
+                  <a :href="formValues.buttonLink" style="text-decoration: none;">
+                    <button style="display: block; width: 100%; padding: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                      {{ formValues.buttonName }}
+                    </button>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
           </table>
-        </template>
-        <template v-if="formValues.email">
-          <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
-            <tr>
-              <td style="width: 20px; padding-right: 5px;">
-                <i class="fas fa-envelope" style="font-size: 16px;"></i>
-              </td>
-              <td>
-                {{ formValues.email }}
-              </td>
-            </tr>
+        </td>
+      </tr>
+      <tr v-if="!formValues.link">
+        <td colspan="2">
+          <!-- Headline, content, and button when no image -->
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="text-align: left;">
+                  <h3 style="margin: 0 0 10px 0;">{{ formValues.headline }}</h3>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: left;" v-html="formValues.content"></td>
+              </tr>
+              <tr v-if="formValues.buttonName">
+                <td style="text-align: left;">
+                  <a :href="formValues.buttonLink" style="text-decoration: none;">
+                    <button style="display: block; width: 100%; padding: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                      {{ formValues.buttonName }}
+                    </button>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
           </table>
-        </template>
-      </td>
-    </tr>
+        </td>
+      </tr>
+      <tr v-if="formValues.phone || formValues.email">
+        <td colspan="2">
+          <!-- Contact Information -->
+          <table style="width: 100%; border-spacing: 0;">
+            <tbody>
+              <tr v-if="formValues.phone">
+                <td style="padding: 5px; vertical-align: middle;">
+                  <i class="fas fa-phone-alt" style="margin-right: 5px;"></i>
+                  {{ formValues.phone }}
+                </td>
+              </tr>
+              <tr v-if="formValues.email">
+                <td style="padding: 5px; vertical-align: middle;">
+                  <i class="fas fa-envelope" style="margin-right: 5px;"></i>
+                  {{ formValues.email }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </template>
